@@ -8,32 +8,7 @@ var app = new Vue({
 	   dimensionXuser : 4,
 	   dimensionYuser :4,
 	   mensajeProceso:"",
-	   lienzo: `<table border="1" style="width: 80%">
-					<tr >
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>
-					<tr >
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>
-					<tr >
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>
-					<tr >
-						<td><img src="img/vehiculo.png"  height="25" width="25"/></td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					</tr>
-				</table>` 
+	   lienzo:""
 	   
 
 	},
@@ -44,7 +19,7 @@ var app = new Vue({
 			  url: 'http://localhost:8080/iniciarpractica',
 			  type: 'POST',
 			  contentType: 'application/json',
-			  data: JSON.stringify({dimensionX: 4, dimensionY:4})
+			  data: JSON.stringify({dimensionX: this.dimensionXuser, dimensionY:this.dimensionYuser})
 			})
 			.done(function(data) {
               self.practica = data;				
@@ -79,11 +54,11 @@ var app = new Vue({
 		},
 		dibujarSuperficie: function(){
 			this.lienzo = '';			
-			this.lienzo += '<table border="1" style="width: 80%">';
+			this.lienzo += '<table border="1" style="width: auto">';
 			for(var i = 0;i< this.dimensionXuser; i++){
-				this.lienzo += '<tr>';
+				this.lienzo += '<tr style="text-align:center">';
 				for(var j = 0; j<this.dimensionYuser; j++){
-					this.lienzo += (i===this.dimensionXuser -1 && j ===0 ) ? '<td><img src="img/vehiculo.png"  height="25" width="25"/></td>':'<td>&nbsp;</td>';
+					this.lienzo += (i===this.dimensionXuser -1 && j ===0 ) ? '<td><img src="img/vehiculo.png" /></td>':'<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>';
 				}
 				this.lienzo += '</tr>';
 			}
@@ -113,11 +88,11 @@ var app = new Vue({
 		
 		reDibujarSuperficie: function(){
 			this.lienzo = '';			
-			this.lienzo += '<table border="1" style="width: 80%">';
+			this.lienzo += '<table border="1" style="width: auto">';
 			for(var i = 0;i< this.dimensionXuser; i++){
 				this.lienzo += '<tr>';
 				for(var j = 0; j<this.dimensionYuser; j++){
-					this.lienzo += ((this.dimensionXuser -(i+1)) === this.practica.vehiculo.posicionX && j ===this.practica.vehiculo.posicionY ) ? '<td><img src="img/vehiculo.png"  height="25" width="25"/></td>':'<td>&nbsp;</td>';
+					this.lienzo += ((this.dimensionXuser -(i+1)) === this.practica.vehiculo.posicionX && j ===this.practica.vehiculo.posicionY ) ? '<td ><img src="img/vehiculo.png"  /></td>':'<td >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>';
 				}
 				this.lienzo += '</tr>';
 			}
